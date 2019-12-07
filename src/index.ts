@@ -1,6 +1,6 @@
 export const cli = (path: string = undefined): boolean => {
-  path = path;
-  return undefined;
+    path = path;
+    return undefined;
 };
 
 cli();
