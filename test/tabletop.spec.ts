@@ -5,10 +5,16 @@ import { Position } from '../src/interface/position';
 import Tabletop from '../src/repository/tabletop';
 
 describe('Tabletop Repository', () => {
+    it('Should be able to create tabletop with environment variable', () => {
+        const table = new Tabletop('3', '4');
+        expect(table.length).to.equal(3);
+        expect(table.width).to.equal(4);
+    });
+
     it('Should be able to create tabletop with default size', () => {
         const table = new Tabletop();
-        expect(table.length).to.equal(+process.env.LENGTH);
-        expect(table.width).to.equal(+process.env.WIDTH);
+        expect(table.length).to.equal(TABLETOP_DEAULT_SIZE);
+        expect(table.width).to.equal(TABLETOP_DEAULT_SIZE);
     });
 
     it('Should default value if input is invalid', () => {

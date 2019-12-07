@@ -10,7 +10,7 @@
     "test": "mocha -r ts-node/register **/*.spec.ts",
     "coverage": "nyc npm run test"
   },
-  "author": "Candidate",
+  "author": "Frank Gu",
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.2.6",
