@@ -1,0 +1,32 @@
+{
+  "name": "toy-robot-simulator",
+  "version": "1.0.0",
+  "description": "A simulation of a toy robot moving on a square tabletop",
+  "main": "./dust/index.ts",
+  "scripts": {
+    "dev": "ts-node ./src/index.ts",
+    "clean": "rimraf ./dist/ ./exec/",
+    "build": "npm run clean && tsc",
+    "test": "mocha -r ts-node/register **/*.spec.ts",
+    "coverage": "nyc npm run test"
+  },
+  "author": "Candidate",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.2.6",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.12.14",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "nyc": "^14.1.1",
+    "rimraf": "^3.0.0",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.5.4",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.3",
+    "webpack": "^4.41.2"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
