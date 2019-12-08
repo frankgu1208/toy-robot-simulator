@@ -4,11 +4,22 @@ import { Position } from '../interface/position';
 import Action from './action';
 import Tabletop from './tabletop';
 
-export default class RobotRepo {
+export default class Robot {
+    /**
+     * Position detail of the robot @see Position
+     * Position should be undefined until a valid PLACE command
+     */
     public position?: Position;
 
+    /** @constructor for Robot and set the tabletop */
     public constructor(public tabletop: Tabletop = new Tabletop()) { }
 
+    /**
+     * Robot take action
+     * @param action check the action type to perform the appropriate action
+     * action type should be PLACE, MOVE, RIGHT, LEFT, REPORT.
+     * Invalid action type should be undefined
+     */
     public takeAction = (action: Action): void => {
         switch (action.type) {
             case Command.PLACE:
@@ -26,6 +37,11 @@ export default class RobotRepo {
         }
     }
 
+    /**
+     * PLACE process for the robot
+     * @this position will set if the action data is on the tabletop
+     * @param action action.type should be PLACE
+     */
     public placeRobot = (action: Action): void => {
         if (action.type === Command.PLACE && action.data
             && this.tabletop.isOnTable(action.data)) {
@@ -33,6 +49,11 @@ export default class RobotRepo {
         }
     }
 
+    /**
+     * MOVE process for the robot
+     * If the next position is outside the table, robot won't move
+     * @param action type should be MOVE
+     */
     public moveRobot = (action: Action): void => {
         if (this.position && action.type === Command.MOVE) {
             const {
@@ -53,18 +74,30 @@ export default class RobotRepo {
         }
     }
 
+    /**
+     * LEFT process for the robot @see @this rotate
+     * @param action type should be LEFT
+     */
     public turnLeft = (action: Action): void => {
         if (action.type === Command.LEFT) {
             this.rotate(-1);
         }
     }
 
+    /**
+     * RIGHT process for the robot @see @this rotate
+     * @param action type should be RIGHT
+     */
     public turnRight = (action: Action): void => {
         if (action.type === Command.RIGHT) {
             this.rotate(1);
         }
     }
 
+    /**
+     * REPORT process for the robot
+     * @param action type should be REPORT
+     */
     public report = (action: Action): void => {
         if (action.type === Command.REPORT) {
             if (this.position) {
@@ -76,6 +109,12 @@ export default class RobotRepo {
         }
     }
 
+    /**
+     * Rotate the robot
+     * @param times Represents how many times of 90-degrees to turn
+     * times should be 1 if robot need to turn RIGHT (90 degree)
+     * times should be -1 if robot need to turn LEFT (-90 degree)
+     */
     private rotate = (times: number): void => {
         if (this.position && DIRECTION_ORDER.indexOf(this.position.direct) >= 0) {
             const nextIndex = ((DIRECTION_ORDER.indexOf(this.position.direct) + times)
