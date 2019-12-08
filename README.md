@@ -14,6 +14,12 @@
 
 For more details, please read this [feature description document](DESCRIPTION.md).
 
+## Assumption
+
+- Once the robot is placed on the desktop, it will never fail down.
+- Robot will ignore all actions which will cause it to fall.
+- Robot will ignore all invalid commands.
+
 ## Directory Structure
 
 ```bash
