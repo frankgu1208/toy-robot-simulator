@@ -4,7 +4,7 @@ import { Position } from '../interface/position';
 export default class Action {
     /**
      * Command like RIGHT, PLACE @see Command
-     * Invalid command type should be null
+     * type should be null when the input is invalid
      */
     public type?: Command;
     /**

@@ -8,6 +8,6 @@ export interface Position {
     x: number;
     /** Table y-axis corresponding to width */
     y: number;
-    /** Faction direction on the table */
+    /** Facing direction on the table */
     direct: Direction;
 }

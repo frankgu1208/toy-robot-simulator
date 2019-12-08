@@ -4,7 +4,7 @@
   "description": "A simulation of a toy robot moving on a square tabletop",
   "main": "./dust/index.ts",
   "scripts": {
-    "dev": "ts-node ./src/index.ts",
+    "start": "ts-node ./src/index.ts",
     "clean": "rimraf ./dist/ ./exec/",
     "build": "npm run clean && tsc",
     "test": "mocha -r ts-node/register **/*.spec.ts",
