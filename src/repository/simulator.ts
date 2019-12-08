@@ -7,7 +7,15 @@ export default class Simulator {
     public robot: Robot;
     public actions: Action[];
 
+    public constructor() {
+        this.tabletop = new Tabletop();
+        this.robot = new Robot(this.tabletop);
+        this.actions = [];
+    }
+
     public process = (input: string) => {
-        input = input;
+        const action = new Action(input);
+        this.actions.push(action);
+        this.robot.takeAction(action);
     }
 }
