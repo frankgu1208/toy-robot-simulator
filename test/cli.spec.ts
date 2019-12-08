@@ -3,7 +3,7 @@ import { cli } from '../src/';
 
 describe('index cli function', () => {
     it('able to read file from environment variable', () => {
-        const result = cli();
+        const result = cli('commands.txt');
         expect(result).to.equal(true);
     });
 
