@@ -139,7 +139,7 @@ describe('Tabletop Repository', () => {
         const objectPostion = { x: 0, y: 0 };
         const robotPostion = { x: 0, y: 0, direct: Direction.SOUTH };
         table.addObject(objectPostion);
-        const result = table.availablePosition(robotPostion);
+        const result = table.isAvailablePosition(robotPostion);
         expect(result).to.equal(false);
     });
 
@@ -148,7 +148,7 @@ describe('Tabletop Repository', () => {
         const objectPostion = { x: 0, y: 0 };
         const robotPostion = { x: 0, y: 1, direct: Direction.SOUTH };
         table.addObject(objectPostion);
-        const result = table.availablePosition(robotPostion);
+        const result = table.isAvailablePosition(robotPostion);
         expect(result).to.equal(true);
     });
 });

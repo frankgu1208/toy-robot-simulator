@@ -46,7 +46,7 @@ export default class Robot {
      */
     public placeRobot = (action: Action): void => {
         if (action.type === Command.PLACE && action.data
-            && this.tabletop.availablePosition(action.data)) {
+            && this.tabletop.isAvailablePosition(action.data)) {
             this.position = action.data;
         }
     }
@@ -70,7 +70,7 @@ export default class Robot {
                 y: direct === Direction.NORTH ? roboY + 1
                     : (direct === Direction.SOUTH ? roboY - 1 : roboY),
             } as Position;
-            if (this.tabletop.availablePosition(nextPosition)) {
+            if (this.tabletop.isAvailablePosition(nextPosition)) {
                 this.position = nextPosition;
             }
         }

@@ -21,7 +21,7 @@ export default class Tabletop {
     }
 
     /**
-     * @deprecated Please use @see this.availablePosition
+     * @deprecated Please use @see isAvailablePosition
      * Check the postion is on the table
      * @param position need to check if is on the table
      */
@@ -36,7 +36,7 @@ export default class Tabletop {
      * It will return false if it is outside of the table or meet the object
      * @param position need to check if is on the table
      */
-    public availablePosition = (position: Position): boolean => {
+    public isAvailablePosition = (position: Position): boolean => {
         const isOnTable = Number.isInteger(position.x) && Number.isInteger(position.y)
             && position.x >= 0 && position.x < this.length
             && position.y >= 0 && position.y < this.width;
@@ -50,7 +50,7 @@ export default class Tabletop {
      * @param position the location specify for the object
      */
     public addObject = (position: Position): void => {
-        if (this.availablePosition(position)) {
+        if (this.isAvailablePosition(position)) {
             this.objects.push(position);
         }
     }
