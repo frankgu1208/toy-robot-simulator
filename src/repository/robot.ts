@@ -32,6 +32,8 @@ export default class Robot {
                 return this.turnLeft(action);
             case Command.REPORT:
                 return this.report(action);
+            case Command.PLACE_OBJECT:
+                return this.placeObject(action);
             default:
                 return undefined;
         }
@@ -44,14 +46,14 @@ export default class Robot {
      */
     public placeRobot = (action: Action): void => {
         if (action.type === Command.PLACE && action.data
-            && this.tabletop.isOnTable(action.data)) {
+            && this.tabletop.availablePosition(action.data)) {
             this.position = action.data;
         }
     }
 
     /**
      * MOVE process for the robot
-     * If the next position is outside the table, robot won't move
+     * If the next position is outside the table or meet the object, robot won't move
      * @param action type should be MOVE
      */
     public moveRobot = (action: Action): void => {
@@ -68,7 +70,7 @@ export default class Robot {
                 y: direct === Direction.NORTH ? roboY + 1
                     : (direct === Direction.SOUTH ? roboY - 1 : roboY),
             } as Position;
-            if (this.tabletop.isOnTable(nextPosition)) {
+            if (this.tabletop.availablePosition(nextPosition)) {
                 this.position = nextPosition;
             }
         }
@@ -106,6 +108,27 @@ export default class Robot {
             } else {
                 console.log('Robot is not on the table.');
             }
+        }
+    }
+
+    /**
+     * PLACE_OBJECT process for the robot
+     * @param action type should be PLACE_OBJECT
+     */
+    public placeObject = (action: Action): void => {
+        if (action.type === Command.PLACE_OBJECT && !!this.position) {
+            const {
+                x: roboX,
+                y: roboY,
+                direct,
+            } = this.position;
+            const nextPosition = {
+                x: direct === Direction.EAST ? roboX + 1
+                    : (direct === Direction.WEST ? roboX - 1 : roboX),
+                y: direct === Direction.NORTH ? roboY + 1
+                    : (direct === Direction.SOUTH ? roboY - 1 : roboY),
+            } as Position;
+            this.tabletop.addObject(nextPosition);
         }
     }
 

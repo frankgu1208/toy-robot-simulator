@@ -160,4 +160,52 @@ describe('Robot Repository', () => {
             expect(robot.position).to.deep.equal(result[index]);
         });
     });
+
+    it('Robot should able to place object on the table top', () => {
+        const tabletop = new Tabletop();
+        const robot = new Robot(tabletop);
+        const actions = [
+            'PLACE 0,0,NORTH',
+            'PLACE_OBJECT',
+        ];
+        actions.map(a => robot.takeAction(new Action(a)));
+        expect(tabletop.objects.length).to.deep.equal(1);
+    });
+
+    it('Robot should able process a list of actions with PLACE_OBJECT', () => {
+        const tabletop = new Tabletop(2, 2);
+        const robot = new Robot(tabletop);
+        const actions = [
+            'PLACE 0,0,SOUTH', 'MOVE', 'REPORT',
+            'LEFT', 'MOVE', 'MOVE',
+            'LEFT', 'PLACE_OBJECT', 'MOVE',
+            'LEFT', 'PLACE_OBJECT', 'MOVE',
+            'PLACE_OBJECT', 'REPORT',
+        ];
+        const result = [
+            { x: 0, y: 0, direct: Direction.SOUTH },
+            { x: 0, y: 0, direct: Direction.SOUTH },
+            { x: 0, y: 0, direct: Direction.SOUTH },
+
+            { x: 0, y: 0, direct: Direction.EAST },
+            { x: 1, y: 0, direct: Direction.EAST },
+            { x: 1, y: 0, direct: Direction.EAST },
+
+            { x: 1, y: 0, direct: Direction.NORTH },
+            { x: 1, y: 0, direct: Direction.NORTH },
+            { x: 1, y: 0, direct: Direction.NORTH },
+
+            { x: 1, y: 0, direct: Direction.WEST },
+            { x: 1, y: 0, direct: Direction.WEST },
+            { x: 1, y: 0, direct: Direction.WEST },
+
+            { x: 1, y: 0, direct: Direction.WEST },
+            { x: 1, y: 0, direct: Direction.WEST },
+        ] as Position[];
+        actions.map((input, index) => {
+            robot.takeAction(new Action(input));
+            expect(robot.position).to.deep.equal(result[index]);
+        });
+        expect(tabletop.objects.length).to.equal(2);
+    });
 });

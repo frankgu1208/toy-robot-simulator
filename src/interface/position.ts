@@ -9,5 +9,5 @@ export interface Position {
     /** Table y-axis corresponding to width */
     y: number;
     /** Facing direction on the table */
-    direct: Direction;
+    direct?: Direction;
 }

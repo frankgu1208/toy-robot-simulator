@@ -4,6 +4,7 @@ import { Position } from '../interface/position';
 export default class Tabletop {
     public length: number;
     public width: number;
+    public objects: Position[];
 
     /**
      * @constructor Set the length and width of the table
@@ -16,9 +17,11 @@ export default class Tabletop {
     ) {
         this.length = this.getTableSize(length);
         this.width = this.getTableSize(width);
+        this.objects = [];
     }
 
     /**
+     * @deprecated Please use @see this.availablePosition
      * Check the postion is on the table
      * @param position need to check if is on the table
      */
@@ -26,6 +29,30 @@ export default class Tabletop {
         return Number.isInteger(position.x) && Number.isInteger(position.y)
             && position.x >= 0 && position.x < this.length
             && position.y >= 0 && position.y < this.width;
+    }
+
+    /**
+     * Check the robot position is avaliable
+     * It will return false if it is outside of the table or meet the object
+     * @param position need to check if is on the table
+     */
+    public availablePosition = (position: Position): boolean => {
+        const isOnTable = Number.isInteger(position.x) && Number.isInteger(position.y)
+            && position.x >= 0 && position.x < this.length
+            && position.y >= 0 && position.y < this.width;
+        const meetObject = this.objects.some(
+            object => object.x === position.x && object.y === position.y);
+        return isOnTable && !meetObject;
+    }
+
+    /**
+     * Add the object into @see this.objects
+     * @param position the location specify for the object
+     */
+    public addObject = (position: Position): void => {
+        if (this.availablePosition(position)) {
+            this.objects.push(position);
+        }
     }
 
     /**

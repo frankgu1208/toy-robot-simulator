@@ -11,4 +11,5 @@ export enum Command {
     LEFT = 'LEFT',
     RIGHT = 'RIGHT',
     REPORT = 'REPORT',
+    PLACE_OBJECT = 'PLACE_OBJECT',
 }

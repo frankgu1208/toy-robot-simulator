@@ -96,4 +96,59 @@ describe('Tabletop Repository', () => {
             expect(table.isOnTable(p)).to.equal(false);
         });
     });
+
+    it('Valid position to put an object onto the tabletop', () => {
+        const table = new Tabletop(5, 5);
+        const validPosition = [
+            { x: 0, y: 0 },
+            { x: 1, y: 1 },
+            { x: 2, y: 2 },
+        ];
+        expect(table.objects.length).to.equal(0);
+        validPosition.map(p => {
+            table.addObject(p);
+        });
+        expect(table.objects.length).to.equal(validPosition.length);
+    });
+
+    it('Invalid position to put an object onto the tabletop', () => {
+        const table = new Tabletop(1, 1);
+        const validPosition = [
+            { x: 1, y: 1 },
+            { x: 2, y: 2 },
+        ];
+        expect(table.objects.length).to.equal(0);
+        validPosition.map(p => {
+            table.addObject(p);
+        });
+        expect(table.objects.length).to.equal(0);
+    });
+
+    it('Should not able to put multiple objects on the same postion', () => {
+        const table = new Tabletop(1, 1);
+        const objectPostion = { x: 0, y: 0 };
+        expect(table.objects.length).to.equal(0);
+        table.addObject(objectPostion);
+        expect(table.objects.length).to.equal(1);
+        table.addObject(objectPostion);
+        expect(table.objects.length).to.equal(1);
+    });
+
+    it('Check the position is on the object', () => {
+        const table = new Tabletop(5, 5);
+        const objectPostion = { x: 0, y: 0 };
+        const robotPostion = { x: 0, y: 0, direct: Direction.SOUTH };
+        table.addObject(objectPostion);
+        const result = table.availablePosition(robotPostion);
+        expect(result).to.equal(false);
+    });
+
+    it('Check the position is not on the object', () => {
+        const table = new Tabletop(5, 5);
+        const objectPostion = { x: 0, y: 0 };
+        const robotPostion = { x: 0, y: 1, direct: Direction.SOUTH };
+        table.addObject(objectPostion);
+        const result = table.availablePosition(robotPostion);
+        expect(result).to.equal(true);
+    });
 });

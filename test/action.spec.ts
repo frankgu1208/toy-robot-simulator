@@ -129,4 +129,18 @@ describe('Action Repository', () => {
             expect(action.data).to.be.an('undefined');
         });
     });
+
+    it('Able to convert valid PLACE_OBJECT command', () => {
+        const inputs = [
+            'PLACE_OBJECT',
+            'place_object',
+            '  PLACE_OBJECT  ',
+        ];
+        inputs.map(input => {
+            const action = new Action(input);
+            expect(action).to.be.an('object');
+            expect(action.type).to.equal(Command.PLACE_OBJECT);
+            expect(action.data).to.be.an('undefined');
+        });
+    });
 });
